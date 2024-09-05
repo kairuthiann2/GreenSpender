@@ -14,9 +14,9 @@ const expenseRoute = require('./routes/expenseRoute');
 const app = express();
 
 // Health check route
-app.get('/health', (req, res) => {
+/*app.get('/health', (req, res) => {
     res.status(200).send('OK');
-})
+})*/
 
 // Middlewares
 app.use(credentials);

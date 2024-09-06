@@ -9,6 +9,7 @@ const credentials = require('./middlewares/credentials');
 const registerRoute = require('./routes/registerRoute');
 const loginRoute = require('./routes/loginRoute');
 const expenseRoute = require('./routes/expenseRoute');
+const metricsRoute = require('./routes/metricsRoute');
 
 // Create an instance of express
 const app = express();
@@ -65,7 +66,7 @@ app.get('/:page', (req, res) => {
 app.use('/api/register', registerRoute);
 app.use('/api/login', loginRoute);
 app.use('/api/expenses', expenseRoute);
-
+app.use('api/impact-metrics', metricsRoute);
 
 // Start server
 const port = process.env.PORT;

@@ -30,11 +30,11 @@ app.use(session({
 }));
 
 // Serve static files form th public directory
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Route to handle the root path
 app.get('/', (req, res) => {
-    const filePath = path.join(__dirname, '../public/pages');
+    const filePath = path.join(__dirname, '../frontend/pages/index.html');
     console.log(`Serving file: ${filePath}`);
     res.sendFile(filePath, (err) => {
         if (err) {
@@ -49,7 +49,7 @@ app.get('/:page', (req, res) => {
     const page = req.params.page;
     const pageWithoutExtension = page.split('.').slice(0, -1).join('.');
 
-    const filePath = path.join(__dirname, `../public/pages/${pageWithoutExtension}.html`);
+    const filePath = path.join(__dirname, `../frontend/pages/${pageWithoutExtension}.html`);
     console.log(`Attempting to serve the file: ${filePath}`);
 
     res.sendFile(filePath, (err) => {

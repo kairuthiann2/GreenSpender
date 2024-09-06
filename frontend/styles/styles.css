@@ -1,0 +1,149 @@
+/* The landing page starts*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #606c38;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#header-landing-page{
+    position: sticky;
+    top:0;
+    background-color: #FEFAE0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    box-shadow: 0 2px 5px #BC6C25;    
+
+}
+
+.heading { 
+    color: black;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    margin: 0 40px 0;
+    font-size: 1.3rem;
+
+
+}
+
+.nav-links a:hover{
+    color: #283618;
+    border-bottom: 2px solid #BC6C25;
+}
+
+.main-landing-page {
+    display: flex;
+    object-fit: cover;
+    margin: 0 40px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-left{
+    flex: 1;
+    padding: 30px 0 0 0;
+    display: inline;
+}
+
+.main-left .p-1{
+    font-size: 2rem;
+    color: #FEFAE0;
+    margin-bottom: 15px;
+}
+
+.main-left .p-2{
+    font-size: 1.25rem;
+    color: #FEFAE0;
+    
+}
+
+/* main button*/
+.get-started {
+    margin: 15px 0;
+}
+
+.bt{
+    padding: 10px 30px;
+    border-radius: 3rem;
+    background-color: #BC6C25;
+    cursor: pointer;
+    border: none;
+    font-size: 1.1rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.bt a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.bt:hover {
+    background-color: #283618;
+    
+    transform: scale(1.09);
+}
+/* Media queries */
+@media (max-width: 1200px) {
+    .main-landing-page {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-left, .main-right {
+        padding: 10px;
+    }
+
+    .main-right img {
+        width: 80%;
+        height: auto;
+    }
+}
+@media (max-width: 768px) {
+    .nav-links a {
+        margin: 0 5px;
+    }
+
+    .main-landing-page {
+        padding: 10px;
+    }
+
+    .main-right img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links a {
+        margin: 5px 0;
+    }
+
+    .main-left, .main-right {
+        padding: 5px;
+    }
+
+    .main-right img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+

@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Send a POST request to the server with the registration data
             console.log('Sending registration request to server...');
-            const response = await fetch('http://localhost:3000/api/register', {
+            const response = await fetch('http://localhost:4000/api/register', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -79,12 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Retrieve values from input field
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-        // console.log('Input Values:', { email, password });
+        console.log('Input Values:', { email, password });
 
         try {
 
             // Send a POST request to the server with the login data           
-            const response = await fetch('http://localhost:3000/api/login', {
+            const response = await fetch('http://localhost:4000/api/login', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

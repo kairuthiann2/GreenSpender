@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link href="../styles/forms.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <script type="module" src="../scripts/forms.js" defer></script>
+
+</head>
+<body>
+    <!-- Sign Up page -->
+    <div class="signup-container">
+        <div class="signup-card">
+            <h2>Login</h2>
+            <!-- Form section STARTS -->
+            <form id="login-form" method="post", action="api/login">                
+                <div class="input-group">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" placeholder="password" required>
+                </div>
+                <div class="input-btn">
+                    <button type="submit">Login</button>
+                    <a href="index.html">Back</a>
+                </div>
+                
+            </form>
+            <!-- Form section ENDS-->
+        </div>
+    </div>
+    
+</body>
+</html>

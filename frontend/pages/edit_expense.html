@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link href="../styles/forms.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <script src="../scripts/apiCalls.js"></script>
+    <script type="module" src="../scripts/expense.js" defer></script>
+
+</head>
+<body>
+    <!-- Sign Up page -->
+    <div class="signup-container">
+        <div class="signup-card">
+            <h2>Edit Expense</h2>
+            <!-- Form section STARTS -->
+            <form id="edit-expense-form">
+                <div class="input-group">
+                    <input type="text" id="expense-category" name="expense-category" placeholder="Expense Category" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="description" name="description" placeholder="Expense Description" required>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="amount" name="amount" placeholder="Expense Amount" required>
+                </div>
+                <div class="input-group">
+                    <input type="date" id="date" name="date" placeholder="Expense Date" required>
+                </div>
+                <div class="input-btn">
+                    <button type="submit">Edit Expense</button>
+                    <a href="view_expense.html">Back</a>
+                </div>
+            </form>
+            <!-- Form section ENDS-->
+        </div>
+    </div>
+    
+</body>
+</html>

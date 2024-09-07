@@ -62,7 +62,7 @@ app.get('/:page', (req, res) => {
 });
 
 
-// Use the register route
+// Use the route
 app.use('/api/register', registerRoute);
 app.use('/api/login', loginRoute);
 app.use('/api/expenses', expenseRoute);

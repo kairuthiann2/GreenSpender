@@ -1,6 +1,18 @@
+const db = require('../db');
+
+const getExpensesForUser = async (userId) => {
+    try {
+        const [rows] = await db.query('SELECT * FROM expenses where user_id = ?', [userId])
+        return rows;
+    } catch (error) {
+        console.log('Error fetching expenses:', error)
+    }
+};
+
 const calculateImpactMetrics = async (userId) => {
-    // Fetch user expenses from the database
-    const expenses = getExpensesForUser(userId);
+    try {
+        // Fetch user expenses from the database
+    const expenses = await getExpensesForUser(userId);
 
     // Calculate metrics 
     const totalSpent = expenses.reduce((sum, expense) => sum + expenses.amount, 0);
@@ -16,4 +28,10 @@ const calculateImpactMetrics = async (userId) => {
         waterUsage,
         energyConsumption
     };
+
+    } catch (error) {
+       console.log('Error calculating impact metrics:', error)
+    }
+    
 };
+module.exports = { calculateImpactMetrics };

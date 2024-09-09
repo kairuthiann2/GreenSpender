@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch('api/impact-metrics');
-        const metrics = await response.json();
+        const response = await apical('/api/impact-metrics', 'GET');
+        
 
         // Carbon Emissions - Pie Chart
-        plotly.newPlot('carbonEmissionsChart', [{
+        Plotly.newPlot('carbonEmissionsChart', [{
             labels: ['Carbon Emissions'],
             values: [metrics.carbonEmissions],
             type: 'pie'
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         // Waste Generated - Scatter plot
-        plotly.newPlot('wasteGeneratedChart', [{
+        Plotly.newPlot('wasteGeneratedChart', [{
             x: ['waste Generated'],
             y: [metrics.wasteGenerated],
             mode: 'markers',
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         // Water Usage - Line Chart
-        plotly.newPlot('waterUsageChart', [{
+        Plotly.newPlot('waterUsageChart', [{
             x: ['water Usage'],
             y: [metrics.waterUsage],
             mode: 'lines+markers',
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         // Energy consumption - Area Chart
-        plotly.newPlot('energyConsumptionChart', [{
+        Plotly.newPlot('energyConsumptionChart', [{
             x: ['energy Consumption'],
             y: [metrics.energyConsumption],
             fill: 'tozeroy',

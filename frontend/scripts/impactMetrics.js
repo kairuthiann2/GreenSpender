@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await apical('/api/impact-metrics', 'GET');
+        const response = await apiCall('/api/impact-metrics', 'GET');
         
 
         // Carbon Emissions - Pie Chart

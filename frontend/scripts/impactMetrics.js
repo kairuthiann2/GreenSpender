@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log('DoM fully loaded and parsed')
     try {
+        console.log('Attempting to call the API...');
         const response = await apiCall('/api/impact-metrics', 'GET');
+        console.log('API call successful, response:', response);
         
 
         // Carbon Emissions - Pie Chart
@@ -11,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }], {
             title: 'Carbon Emissions'
         });
+        console.log('Carbo emissions chart plotted');
 
         // Waste Generated - Scatter plot
         Plotly.newPlot('wasteGeneratedChart', [{
@@ -21,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }], {
             title: 'Waste Generated'
         });
+        console.log('Waste generated chart plotted')
 
         // Water Usage - Line Chart
         Plotly.newPlot('waterUsageChart', [{
@@ -31,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }], {
             title: 'Water Usage'
         });
+        console.log('Waste Usage chart plotted')
 
         // Energy consumption - Area Chart
         Plotly.newPlot('energyConsumptionChart', [{
@@ -41,6 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }], {
             title: 'Energy Consumption'
         });
+        console.log('Energy consumption chart plotted')
 
     } catch (error) {
         console.log('Error fetching impact metrics:', error);

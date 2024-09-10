@@ -66,7 +66,8 @@ app.get('/:page', (req, res) => {
 app.use('/api/register', registerRoute);
 app.use('/api/login', loginRoute);
 app.use('/api/expenses', expenseRoute);
-app.use('api/impact-metrics', metricsRoute);
+
+app.use('/api/impact-metrics', metricsRoute);
 
 // Start server
 const port = process.env.PORT;

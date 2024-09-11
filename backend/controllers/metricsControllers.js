@@ -1,8 +1,8 @@
 const db = require('../db');
 
-const getExpensesForUser = async (userId) => {
+const getExpensesForUser = (userId) => {
     try {
-        const [rows] = await db.query('SELECT * FROM expenses where user_id = ?', [userId])
+        const [rows] = db.query('SELECT * FROM expenses where user_id = ?', [userId])
         return rows;
     } catch (error) {
         console.log('Error fetching expenses:', error)
@@ -12,7 +12,7 @@ const getExpensesForUser = async (userId) => {
 const calculateImpactMetrics = async (userId) => {
     try {
         // Fetch user expenses from the database
-    const expenses = await getExpensesForUser(userId);
+    const expenses = await getExpensesForUser(userId) || [];
 
     // Calculate metrics 
     const totalSpent = expenses.reduce((sum, expense) => sum + expense.amount, 0);

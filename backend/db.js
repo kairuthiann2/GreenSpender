@@ -47,6 +47,27 @@ db.connect((err) => {
         (result.length > 0)
         console.log('Expenses table already exist.');
     });
+
+    // Create impact_factors table
+    const impactFactorsTable = `
+      CREATE TABLE IF NOT EXISTS impact_factors(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        category VARCHAR(255),
+        description VARCHAR(255),
+        carbon_emission_factor FLOAT,
+        energy_consumption_factor FLOAT,
+        water_usage_factor FLOAT,
+        waste_generated_factor FLOAT,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    
+)`;
+    db.query(impactFactorsTable, (err, result) => {
+        if (err) return console.log('Impact factors table not created/checked:', err.message)
+                    
+        console.log('Impact factors table creater/checked')
+    
+    });
     
 });
 

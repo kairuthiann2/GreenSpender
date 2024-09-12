@@ -12,7 +12,7 @@ const db = mysql.createConnection({
 // check if the connection works
 db.connect((err) => {
     if (err) return console.log("Error connecting to the database");
-    console.log("Connected to the MySQL database.");
+    console.log(`Connected to the MySQL database. ${process.env.DB_DATABASE}`);
 
     // Create users table 
     const usersTable = `
@@ -39,27 +39,34 @@ db.connect((err) => {
         date DATE NOT NULL,
         category VARCHAR(100),
         description VARCHAR(100),
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        UNIQUE KEY unique_expense (date, category, description)
 )`;
-    // check if the table already exist
-    db.query("SHOW TABLES LIKE 'expenses'", (err, result) => {
-        if (err) return console.log('Error checking for expense table:', err.message);
-        (result.length > 0)
-        console.log('Expenses table already exist.');
-    });
+    
+      // Create the new expenses table
+       db.query(expensesTable, (err, result) => {
+         if (err) return console.log('Error creating expenses table');
+          console.log('Expenses table Created/checked')
+
+        });
+  
+  
+  
 
     // Create impact_factors table
-    const impactFactorsTable = `
+    /*const impactFactorsTable = `
       CREATE TABLE IF NOT EXISTS impact_factors(
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
-        category VARCHAR(255),
-        description VARCHAR(255),
+        category VARCHAR(100),
+        description VARCHAR(100),
+        date DATE NOT NULL,
         carbon_emission_factor FLOAT,
         energy_consumption_factor FLOAT,
         water_usage_factor FLOAT,
         waste_generated_factor FLOAT,
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (category, description, date) REFERENCES expenses(category, description, date)
     
 )`;
     db.query(impactFactorsTable, (err, result) => {
@@ -68,7 +75,7 @@ db.connect((err) => {
         console.log('Impact factors table creater/checked')
     
     });
-    
+    */
 });
 
 

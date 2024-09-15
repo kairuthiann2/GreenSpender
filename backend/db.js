@@ -79,7 +79,7 @@ db.connect((err) => {
      });
    });
   
-    /* Create impact_factors table
+    // Create impact_factors table
     const impactFactorsTable = `
       CREATE TABLE IF NOT EXISTS impact_factors(
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -95,11 +95,11 @@ db.connect((err) => {
         FOREIGN KEY (category, description, date) REFERENCES expenses(category, description, date)
     
 )`;
-  //  DROP TABLE IF EXISTS 
+  /*  DROP TABLE IF EXISTS 
   db.query("DROP TABLE IF EXISTS impact_factors", (err) => {
     if (err) return console.log('Error dropping impact factor table:', err.message);
     console.log('Impacts factor table dropped successfully');
-  })
+  })*/
 
    // Create the impact factors table
     db.query(impactFactorsTable, (err, result) => {
@@ -107,7 +107,7 @@ db.connect((err) => {
                     
         console.log('Impact factors table creater/checked')
     
-    });*/
+    });
     
 });
 

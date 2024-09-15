@@ -43,18 +43,44 @@ db.connect((err) => {
         UNIQUE KEY unique_expense (date, category, description)
 )`;
     
-      // Create the new expenses table
-       db.query(expensesTable, (err, result) => {
-         if (err) return console.log('Error creating expenses table');
-          console.log('Expenses table Created/checked')
+  // Create the new expenses table
+   db.query(expensesTable, (err) => {
+     if (err) return console.log('Error creating expenses table');
+     console.log('Expenses table Created/checked')
 
-        });
-  
-  
-  
+     // check if the Reference index exists
+     const checkRefIndex = `
+       SELECT COUNT(1) AS indexExists
+       FROM information_schema.statistics
+       WHERE table_schema = '${process.env.DB_DATABASE}'
+       AND table_name = 'expenses'
+       AND index_name = 'idx_expenses'
+     `;
 
-    // Create impact_factors table
-    /*const impactFactorsTable = `
+     db.query(checkRefIndex, (err, result) => {
+       if (err) return console.log('Error checking for index on expenses table:', err.message);
+
+       // If the index does not exist, add it
+       if (result[0].indexExists === 0) {
+         const expensesTableRefIndex = `
+           ALTER TABLE expenses
+           ADD INDEX idx_expenses ( category, description, date )
+         `;
+
+         db.query(expensesTableRefIndex, (err) => {
+           if (err) return console.log('Error Adding index to expenses table:', err.message);
+           console.log('Index added/checked successfully on expenses table.');
+
+         });
+
+       } else {
+         console.log('Index already exists on expenses table.')
+       }
+     });
+   });
+  
+    /* Create impact_factors table
+    const impactFactorsTable = `
       CREATE TABLE IF NOT EXISTS impact_factors(
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
@@ -69,13 +95,20 @@ db.connect((err) => {
         FOREIGN KEY (category, description, date) REFERENCES expenses(category, description, date)
     
 )`;
+  //  DROP TABLE IF EXISTS 
+  db.query("DROP TABLE IF EXISTS impact_factors", (err) => {
+    if (err) return console.log('Error dropping impact factor table:', err.message);
+    console.log('Impacts factor table dropped successfully');
+  })
+
+   // Create the impact factors table
     db.query(impactFactorsTable, (err, result) => {
         if (err) return console.log('Impact factors table not created/checked:', err.message)
                     
         console.log('Impact factors table creater/checked')
     
-    });
-    */
+    });*/
+    
 });
 
 

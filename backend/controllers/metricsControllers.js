@@ -12,14 +12,14 @@ const insertImpactFactor = async (userId, category, description, date) => {
     const insertFactor = `
       INSERT INTO impact_factors
       (user_id, category, description, date, carbon_emission_factor, energy_consumption_factor, water_usage_factor, waste_generated_factor)
-      VALUES (?, ?, ?, ?, 0, 0, 0, 0)
+      VALUES (?, ?, ?, ?, 0.1, 0.3, 0.2, 0.4)
       ON DUPLICATE KEY UPDATE
       carbon_emission_factor = VALUES(carbon_emission_factor),
       energy_consumption_factor = VALUES(energy_consumption_factor),
       water_usage_factor = VALUES(water_usage_factor),
-      waste_generated_factor = VALUES(waste_generated_factor),
+      waste_generated_factor = VALUES(waste_generated_factor) 
    
-    `
+    `;
     await db.promise().query(insertFactor, [userId, category, description, date]);
     console.log('Impact factor inserted/updated successfully');
 };

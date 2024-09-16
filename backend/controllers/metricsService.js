@@ -21,7 +21,10 @@ const getExpensesForUser = async (userId) => {
 const getImpactFactorsForUser = async (userId) => {
     try {
         console.log(`Fetching impact factors for user ID: ${userId}`)
-        const [rows] = await db.promise().query('SELECT FROM impact_factors WHERE  user_id = ?', [userId])
+        const [rows] = await db.promise().query(`
+            SELECT category, description, date, carbon_emission_factor, energy_consumption_factor, water_usage_factor, waste_generated_factor
+            FROM impact_factors
+            WHERE  user_id = ?`, [userId]);
         console.log(`Impact factors fetched: `, rows);
         return rows;
     } catch (error) {

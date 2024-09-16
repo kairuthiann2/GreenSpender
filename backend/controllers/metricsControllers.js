@@ -2,7 +2,7 @@ const db = require('../db');
 
 // Check if a category exists in the impact_factors table
 const checkImpactFactorsExists = async (category, description, date) => {
-    const checkImpactFactors = `SELECT * FROM impact_factors WHERE category description date = ????`;
+    const checkImpactFactors = `SELECT * FROM impact_factors WHERE category = ? AND description = ? AND date = ?`;
     const [rows] = await db.promise().query(checkImpactFactors, [category, description, date]);
     return rows.length > 0;
 };

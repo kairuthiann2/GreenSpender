@@ -13,7 +13,7 @@ const predefinedImpactFactors = {
     'Food': {
         'takeaways': ['waste_generated_factor'],
         'food delivery': ['waste_generated_factor'],
-        'home made': ['waste_generated_factor', 'water_usage_factor']
+        //'home made': ['waste_generated_factor', 'water_usage_factor']
         
     },
     

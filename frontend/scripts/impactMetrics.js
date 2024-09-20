@@ -4,50 +4,32 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('Attempting to call the API...');
         const response = await apiCall('/api/impact-metrics', 'GET');
         console.log('API call successful, response:', response);
-        
 
-        // Carbon Emissions - Pie Chart
-        Plotly.newPlot('carbonEmissionsChart', [{
-            labels: ['Carbon Emissions'],
-            values: [metrics.carbonEmissions],
-            type: 'pie'
-        }], {
-            title: 'Carbon Emissions'
-        });
-        console.log('Carbo emissions chart plotted');
+        // Assign the API response to the metrics 
+        const metrics = response;
+        console.log('Api Metrics data:', metrics);
 
-        // Waste Generated - Scatter plot
-        Plotly.newPlot('wasteGeneratedChart', [{
-            x: ['waste Generated'],
-            y: [metrics.wasteGenerated],
-            mode: 'markers',
-            type: 'scatter'
-        }], {
-            title: 'Waste Generated'
-        });
-        console.log('Waste generated chart plotted')
+        // Prepare data for combine chart
+        const trace = {
+            x: ['Carbon Emissions', 'waste Generated', 'water Usage', 'energy Consumption'],
+            y: [metrics.carbonEmissions, metrics.wasteGenerated, metrics.waterUsage, metrics.energyConsumption],
+            type: 'bar'
+        };
 
-        // Water Usage - Line Chart
-        Plotly.newPlot('waterUsageChart', [{
-            x: ['water Usage'],
-            y: [metrics.waterUsage],
-            mode: 'lines+markers',
-            type: 'scatter'
-        }], {
-            title: 'Water Usage'
-        });
-        console.log('Waste Usage chart plotted')
+        const data = [trace];
 
-        // Energy consumption - Area Chart
-        Plotly.newPlot('energyConsumptionChart', [{
-            x: ['energy Consumption'],
-            y: [metrics.energyConsumption],
-            fill: 'tozeroy',
-            type: 'scatter'
-        }], {
-            title: 'Energy Consumption'
+        // plot the combined bar chart 
+        Plotly.newPlot('metricsChart', data, {
+            title: 'Environmental Impact Metrics',
+            xaxis: {
+                title: 'metrics'
+            },
+            yaxis: {
+                title: 'values'
+            }
         });
-        console.log('Energy consumption chart plotted')
+
+        console.log('Combined impact metrics chart plotted');
 
     } catch (error) {
         console.log('Error fetching impact metrics:', error);

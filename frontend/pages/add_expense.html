@@ -20,23 +20,67 @@
             <h2>Add Expense</h2>
             <!-- Form section STARTS -->
             <form id="expense-form">
+
+                <!-- Expense Category Dropdown -->   
                 <div class="input-group">
-                    <input type="text" id="expense-category" name="expense-category" placeholder="Expense Category" required>
+                    <label for="expense-category">Expense Category</label>
+                    <select id="expense-category" name="expense-category" required>
+                        <option value="" disabled selected>Select Expense Category</option>
+                        <option value="Bills">Bills</option>
+                        <option value="Transportation">Transportation</option>
+                        <option value="Food">Food</option>
+                        <option value="Groceries">Groceries</option>
+                        <option value="personalCare">personal care</option>
+                    </select>
                 </div>
+
+                <!-- Expense Description -->
                 <div class="input-group">
-                    <input type="text" id="description" name="description" placeholder="Expense Description" required>
+                    <label for="description">Expense Description</label>
+                    <select id="description" name="description"  required>
+                        <option value="" disabled selected>Select Expense Description</option>
+                        <!-- Bills -->
+                         <option value="internet">internet</option>
+                         <option value="water">water</option>
+                         <option value="electricity">electricity</option>
+                    
+                        <!-- Transportation -->
+                         <option value="public transport">public transport</option>
+                         <option value="fuel">fuel</option>
+                         
+                        <!-- Food -->
+                         <option value="takeaways">takeaways</option>
+                         <option value="food delivery">food delivery</option>
+                         
+                        <!-- Groceries -->
+                         <option value="fruits">fruits</option>
+                         <option value="vegetables">vegetables</option>
+                        
+                        <!-- Personal care -->
+                         <option value="beauty">beauty</option>
+                         <option value="personal care products">personal care products</option>
+                         
+                    </select>
                 </div>
+
+                <!-- Expense Amount -->
                 <div class="input-group">
+                    <label for="amount">Expense Amount</label>
                     <input type="number" id="amount" name="amount" placeholder="Expense Amount" required>
                 </div>
+
+                <!-- Expense Date -->
                 <div class="input-group">
+                    <label for="date">Expense Date</label>
                     <input type="date" id="date" name="date" placeholder="Expense Date" required>
                 </div>
-                <div class="input-btn">
-                    
+
+                <!-- Submit button -->
+                <div class="input-btn">        
                     <button type="submit">Add Expense</button>
                     <a href="view_expense.html">Back</a>
                 </div>
+
             </form>
             <!-- Form section ENDS-->
         </div>

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('DoM fully loaded and parsed')
     try {
-        console.log('Attempting to call the API...');
+        // console.log('Attempting to call the API...');
         const response = await apiCall('/api/impact-metrics', 'GET');
         console.log('API call successful, response:', response);
 

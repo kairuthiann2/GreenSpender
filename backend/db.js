@@ -95,18 +95,14 @@ db.connect((err) => {
         FOREIGN KEY (category, description, date) REFERENCES expenses(category, description, date)
     
 )`;
-  /*  DROP TABLE IF EXISTS 
-  db.query("DROP TABLE IF EXISTS impact_factors", (err) => {
-    if (err) return console.log('Error dropping impact factor table:', err.message);
-    console.log('Impacts factor table dropped successfully');
-  })*/
-
+  
    // Create the impact factors table
     db.query(impactFactorsTable, (err, result) => {
         if (err) return console.log('Impact factors table not created/checked:', err.message)
                     
-        console.log('Impact factors table creater/checked')
-    
+      console.log('Impact factors table creater/checked');
+
+         
     });
     
 });

@@ -2,7 +2,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const secretKey = process.env.JWT_SECRET;
-//console.log('Secrete Key:', secretKey);
+console.log('Secrete Key:', secretKey);
 
 // Generate JWT token
 const generateToken = (user) => {
@@ -18,7 +18,7 @@ const authenticateToken = (req, res, next) => {
 
     jwt.verify(token, secretKey, (err, user) => {
         if (err) { 
-            //console.log('Token:', token);
+            console.log('Token:', token);
             console.log('JWT Verification Error:', err.message);
             return res.sendStatus(403); // Forbidden
 

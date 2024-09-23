@@ -1,9 +1,4 @@
-// Ensure the dom is fully loaded before running the script
-
-// const { error } = require("console");
-
-//const jwt_decode  = require('jwt-decode')
-//import { jwt_decode } from 'jwt-decode';
+ //import { apiCall } from "./apiCalls";
 
 document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById("register-form");
@@ -27,36 +22,19 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Send a POST request to the server with the registration data
             console.log('Sending registration request to server...');
-            const response = await fetch('http://localhost:4000/api/register', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+            const response = await apiCall('/api/register', 'POST', { username, email, password });
 
-                },
 
-                body: JSON.stringify({ username, email, password }),
-            });
+            // If registration is successful, notify the user
+            console.log('Registration succesfull', response);
+            alert('Registration successful');
 
-            // Parse the JSON response from the server
-            const result = await response.json();
-
-            if (response.ok) {
-                // If registration is successful, notify the user
-                console.log('Registration succesfull');
-                alert('Registration successful');
-
-                // The redirect the user to the login page
-                window.location.href = './pages/login.html';
-
-            } else {
-                // If there is an error, display it to the user 
-                console.error('Registration error:', result);
-                alert(result);
-            }
+            // The redirect the user to the login page
+            window.location.href = './pages/login.html';
 
         } catch (error) {
             // Handle any errors that occur during the fetch request
-            console.error('Error registering:', error);
+            console.error('Error registering:', error.message);
             alert('Error registering. please try again');
         }
         });
@@ -66,8 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     
-
-
 
     // Check if loginForm exists before adding event listener
     if (loginForm) {
@@ -84,57 +60,29 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
 
             // Send a POST request to the server with the login data           
-            const response = await fetch('http://localhost:4000/api/login', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-
-                body: JSON.stringify({ email, password }),
-            });
-
-            // Parse the JSON response from the server 
-            const result = await response.json();
-
-            if (response.ok) {
-                // If login was successful notify the user
-                console.log('Login was successful');
-                alert('Login was successful');
-
-                // Log the received token
-                const token = result.token;
-                //console.log('Received token:', token);
-
-                // Save the token in localstorage
-                localStorage.setItem('token', token);
-                //console.log('Token saved in localstorage');
-
-                // Decode the token to extract the user ID
-                const decodeToken = jwt_decode(token);
-                //console.log('Decoded token:', decodeToken);
-
-                // Save the user ID in localStorage
-                localStorage.setItem('user_id', decodeToken.id);
-                //console.log('user ID saved in localStorage:', decodeToken.id);
-
-                // Then redirect the user to get started
+            const result = await apiCall('/api/login', 'POST', { email, password });
                 
-                window.location.href = '/pages/view_expense.html';
-                //console.log('Current location:', window.location.href);
-                //console.log('Redirecting to: /pages/view_expense.html');
+           
+            // If login was successful notify the user
+            console.log('Login was successful');
+            alert('Login was successful');
 
-            } else {
-                // If there is an error display to the user 
-                console.error("Login failed:", result);
-                alert(result);
-            }
-            
+            // Log and save the received token
+            const token = result.token;
+            localStorage.setItem('token', token);
+
+            // Decode the token to extract the user ID
+            const decodeToken = jwt_decode(token);
+            localStorage.setItem('user_id', decodeToken.id);
+
+            // Then redirect the user to get started
+            window.location.href = '/pages/view_expense.html';
+          
         } catch (error) {
             // Handle any error that occur during the fetch request 
             console.error("Error login:", error);
             alert('Error Login. please try again later');
         }
-
 
     });
 

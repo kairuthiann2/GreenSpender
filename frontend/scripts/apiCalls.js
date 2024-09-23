@@ -1,5 +1,5 @@
 // Helper function for making API  calls
-const apiCall = async (url, method, body = null) => {
+ const apiCall = async (url, method, body = null) => {
     const token = localStorage.getItem('token');
     const options = {
         method: method,

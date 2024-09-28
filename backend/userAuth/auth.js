@@ -18,7 +18,7 @@ const authenticateToken = (req, res, next) => {
 
     jwt.verify(token, secretKey, (err, user) => {
         if (err) { 
-            console.log('Token:', token);
+            //console.log('Token:', token);
             console.log('JWT Verification Error:', err.message);
             return res.sendStatus(403); // Forbidden
 

@@ -1,32 +1,32 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 
 const secretKey = process.env.JWT_SECRET;
-console.log('Secrete Key:', secretKey);
+//console.log('Secrete Key:', secretKey);
 
 // Generate JWT token
 const generateToken = (user) => {
-    return jwt.sign({ id: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
+  return jwt.sign({ id: user.id, email: user.email }, secretKey, {
+    expiresIn: "1h",
+  });
 };
 
-// Authentication middleware 
+// Authentication middleware
 const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    if (!authHeader?.startsWith("Bearer ")) return res.sendStatus(401); // Unauthorized
+  const authHeader = req.headers["authorization"];
+  if (!authHeader?.startsWith("Bearer ")) return res.sendStatus(401); // Unauthorized
 
-    const token = authHeader.split(" ")[1];
+  const token = authHeader.split(" ")[1];
 
-    jwt.verify(token, secretKey, (err, user) => {
-        if (err) { 
-            //console.log('Token:', token);
-            console.log('JWT Verification Error:', err.message);
-            return res.sendStatus(403); // Forbidden
-
-        } 
-        req.user = user;
-        next();
-    
-    });
+  jwt.verify(token, secretKey, (err, user) => {
+    if (err) {
+      //console.log('Token:', token);
+      console.log("JWT Verification Error:", err.message);
+      return res.sendStatus(403); // Forbidden
+    }
+    req.user = user;
+    next();
+  });
 };
 
 module.exports = { generateToken, authenticateToken };

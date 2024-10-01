@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById("username").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-        console.log('Input Values:', { username, email, password });
+        //console.log('Input Values:', { username, email, password });
 
         try {
             // Send a POST request to the server with the registration data
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Retrieve values from input field
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-        console.log('Input Values:', { email, password });
+        //console.log('Input Values:', { email, password });
 
         try {
 

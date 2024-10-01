@@ -1,90 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up</title>
-    <link href="../styles/forms.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="../styles/forms.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
     <script src="../scripts/apiCalls.js"></script>
     <script type="module" src="../scripts/expense.js" defer></script>
-
-
-</head>
-<body>
+    <script src="../scripts/expeCategoryHandler.js"></script>
+  </head>
+  <body>
     <!-- Sign Up page -->
     <div class="signup-container">
-        <div class="signup-card">
-            <h2>Add Expense</h2>
-            <!-- Form section STARTS -->
-            <form id="expense-form">
+      <div class="signup-card">
+        <h2>Add Expense</h2>
+        <!-- Form section STARTS -->
+        <form id="expense-form">
+          <!-- Expense Category Dropdown -->
+          <div class="input-group">
+            <label for="expense-category">Expense Category</label>
+            <select id="expense-category" name="expense-category" required>
+              <option value="" disabled selected>
+                Select Expense Category
+              </option>
+              <option value="Bills">Bills</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Food">Food</option>
+              <option value="Groceries">Groceries</option>
+              <option value="personalCare">personal care</option>
+            </select>
+          </div>
 
-                <!-- Expense Category Dropdown -->   
-                <div class="input-group">
-                    <label for="expense-category">Expense Category</label>
-                    <select id="expense-category" name="expense-category" required>
-                        <option value="" disabled selected>Select Expense Category</option>
-                        <option value="Bills">Bills</option>
-                        <option value="Transportation">Transportation</option>
-                        <option value="Food">Food</option>
-                        <option value="Groceries">Groceries</option>
-                        <option value="personalCare">personal care</option>
-                    </select>
-                </div>
+          <!-- Expense Description -->
+          <div class="input-group">
+            <label for="description">Expense Description</label>
+            <select id="description" name="description" required>
+              <option value="" disabled selected>
+                Select Expense Description
+              </option>
+            </select>
+          </div>
 
-                <!-- Expense Description -->
-                <div class="input-group">
-                    <label for="description">Expense Description</label>
-                    <select id="description" name="description"  required>
-                        <option value="" disabled selected>Select Expense Description</option>
-                        <!-- Bills -->
-                         <option value="internet">internet</option>
-                         <option value="water">water</option>
-                         <option value="electricity">electricity</option>
-                    
-                        <!-- Transportation -->
-                         <option value="public transport">public transport</option>
-                         <option value="fuel">fuel</option>
-                         
-                        <!-- Food -->
-                         <option value="takeaways">takeaways</option>
-                         <option value="food delivery">food delivery</option>
-                         
-                        <!-- Groceries -->
-                         <option value="fruits">fruits</option>
-                         <option value="vegetables">vegetables</option>
-                        
-                        <!-- Personal care -->
-                         <option value="beauty">beauty</option>
-                         <option value="personal care products">personal care products</option>
-                         
-                    </select>
-                </div>
+          <!-- Expense Amount -->
+          <div class="input-group">
+            <label for="amount">Expense Amount</label>
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              placeholder="Expense Amount"
+              required
+            />
+          </div>
 
-                <!-- Expense Amount -->
-                <div class="input-group">
-                    <label for="amount">Expense Amount</label>
-                    <input type="number" id="amount" name="amount" placeholder="Expense Amount" required>
-                </div>
+          <!-- Expense Date -->
+          <div class="input-group">
+            <label for="date">Expense Date</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              placeholder="Expense Date"
+              required
+            />
+          </div>
 
-                <!-- Expense Date -->
-                <div class="input-group">
-                    <label for="date">Expense Date</label>
-                    <input type="date" id="date" name="date" placeholder="Expense Date" required>
-                </div>
-
-                <!-- Submit button -->
-                <div class="input-btn">        
-                    <button type="submit">Add Expense</button>
-                    <a href="view_expense.html">Back</a>
-                </div>
-
-            </form>
-            <!-- Form section ENDS-->
-        </div>
+          <!-- Submit button -->
+          <div class="input-btn">
+            <button type="submit">Add Expense</button>
+            <a href="view_expense.html">Back</a>
+          </div>
+        </form>
+        <!-- Form section ENDS-->
+      </div>
     </div>
-    
-</body>
+  </body>
 </html>

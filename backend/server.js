@@ -68,12 +68,12 @@ app.get("/:page", (req, res) => {
 });
 
 // Use the route
-app.use("/api/register", registerRoute);
-app.use("/api/login", loginRoute);
+app.use("/api/v1/register", registerRoute);
+app.use("/api/v1/login", loginRoute);
 app.use("/api/v1/logout", logOutRoute);
-app.use("/api/expenses", expenseRoute);
+app.use("/api/v1/expenses", expenseRoute);
 
-app.use("/api/impact-metrics", metricsRoute);
+app.use("/api/v1/impact-metrics", metricsRoute);
 
 // Start server
 const port = process.env.PORT;

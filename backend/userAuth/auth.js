@@ -22,6 +22,12 @@ const authenticateToken = (req, res, next) => {
     if (err) {
       //console.log('Token:', token);
       console.log("JWT Verification Error:", err.message);
+
+      // If the token is Expired or invalid
+      if (err.name === "TokenExpiredError") {
+        return res.status(401).json({ message: "Token expired" });
+        
+      }
       return res.sendStatus(403); // Forbidden
     }
     req.user = user;

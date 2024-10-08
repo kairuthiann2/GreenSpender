@@ -5,7 +5,7 @@ const apiCall = async (url, method, body = null) => {
     method: method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      
     },
     body: body ? JSON.stringify(body) : null,
   };

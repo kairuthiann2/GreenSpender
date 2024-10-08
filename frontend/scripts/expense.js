@@ -9,7 +9,6 @@ const attachEventListeners = () => {
   document.querySelectorAll(".edit-btn").forEach((button) => {
     button.addEventListener("click", (e) => {
       const id = e.target.getAttribute("data-id");
-      alert(id);
       editExpense(id);
     });
   });
@@ -17,11 +16,12 @@ const attachEventListeners = () => {
   document.querySelectorAll(".delete-btn").forEach((button) => {
     button.addEventListener("click", (e) => {
       const id = e.target.getAttribute("data-id");
-      alert(id);
       deleteExpense(id);
     });
   });
 };
+
+// View Expenses
 
 // Fetching expenses for the logged in user and attatch event listeners after rendering
 const fetchExpenses = async () => {
@@ -43,8 +43,7 @@ const fetchExpenses = async () => {
     displayExpenses(expenses);
 
     // Attach event listeners after displaying expenses
-      attachEventListeners();
-      
+    attachEventListeners();
   } catch (error) {
     console.error("Error:", error);
   }
@@ -93,8 +92,6 @@ if (window.location.pathname.endsWith("view_expense.html")) {
   document.addEventListener("DOMContentLoaded", fetchExpenses);
 }
 
-
-
 // Add a new expense
 const addExpense = async () => {
   const amount = document.getElementById("amount").value;
@@ -112,15 +109,13 @@ const addExpense = async () => {
       description,
     });
 
-      alert("Expense added successfully.");
-      
-      // Redirect to the view expense page or refresh the list after adding an expense
-      window.location.href = "./view_expense.html";
-      
+    alert("Expense added successfully.");
+
+    // Redirect to the view expense page or refresh the list after adding an expense
+    window.location.href = "./view_expense.html";
 
     // Refresh the expenses list
-      fetchExpenses();
-      
+    fetchExpenses();
   } catch (error) {
     console.error("Error:", error);
   }
@@ -128,19 +123,15 @@ const addExpense = async () => {
 
 // Add event listener to the add expense form
 document.addEventListener("DOMContentLoaded", () => {
-  
   // Check if we are on the add_expense.html page
   if (window.location.pathname.endsWith("add_expense.html")) {
-      const form = document.getElementById("expense-form");
-      
+    const form = document.getElementById("expense-form");
+
     if (form) {
-      
-        form.addEventListener("submit", (e) => { 
-          e.preventDefault();
-          addExpense();
-          
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        addExpense();
       });
-        
     } else {
       console.log("Form element not found");
     }
@@ -151,8 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchExpenses();
   }
 });
-
-
 
 // Edit an expense
 
@@ -166,20 +155,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 const fetchAndPrefillExpense = async (id) => {
   try {
+    const expense = await apiCall(`/api/v1/expenses/edit_expense/${id}`, "GET");
 
-      const expense = await apiCall(`/api/v1/expenses/edit_expense/${id}`, "GET");
-      
-      var date = new Date(expense.date); 
-      const formattedDate = date.toISOString().split("T")[0];
-      
+    var date = new Date(expense.date);
+    const formattedDate = date.toISOString().split("T")[0];
 
-      // prefill the form with the fetched expense data
-      document.getElementById("expense-category").value = expense.category;     
-      document.getElementById("description").value = expense.description;  
-      document.getElementById("amount").value = expense.amount;
-      document.getElementById("date").value = formattedDate;
-      console.log("Form prefilled with the expense data.");
-      
+    // prefill the form with the fetched expense data
+    document.getElementById("expense-category").value = expense.category;
+    document.getElementById("description").value = expense.description;
+    document.getElementById("amount").value = expense.amount;
+    document.getElementById("date").value = formattedDate;
+    console.log("Form prefilled with the expense data.");
   } catch (error) {
     console.error("Error fetching expense data:", error);
   }
@@ -188,8 +174,8 @@ const fetchAndPrefillExpense = async (id) => {
 // Function to handle form submission and send updated data to the server
 document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.endsWith("edit_expense.html")) {
-      const form = document.getElementById("edit-expense-form");
-      
+    const form = document.getElementById("edit-expense-form");
+
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -209,33 +195,40 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           console.log("Expense updated successfully.");
+          alert("Expense updated successfully!");
 
           // Redirect to view_expense.html page after successful edit
-            window.location.href = "./view_expense.html";
-            
+          window.location.href = "./view_expense.html";
         } catch (error) {
-          console.error("Error updating expense:", error);
+          if (error.message.includes("400")) {
+            console.error("Error: Duplicate Expenses detected");
+            alert(
+              "An expense with the same date, category, and description already exists."
+            );
+          } else {
+            console.error("Error updating expense:", error);
+            alert("Failed to update the expense");
           }
-          
+        }
       });
-        
     } else {
       console.log("Form element not found");
     }
   }
 });
 
-
-
 // Delete an expense
 const deleteExpense = async (id) => {
   try {
     await apiCall(`/api/v1/expenses/delete_expense/${id}`, "DELETE");
+
     console.log(`Expense with ID: ${id} deleted successfully.`);
+    alert("Expense Deleted succussfully!");
 
     // Refresh the expenses list
     fetchExpenses();
   } catch (error) {
     console.error("Error:", error);
+    alert("Failed to deleted the expense, try again later");
   }
 };

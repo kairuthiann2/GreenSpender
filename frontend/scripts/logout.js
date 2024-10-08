@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // clear JWT token from localStorage on logout
         localStorage.removeItem("token");
 
-        // call the backend to destroy the session and the log out
+        // call the backend to destroy the session and the localStorage
         const response = await apiCall("/api/v1/logout", "POST");
 
         // Redirect to login page after logout

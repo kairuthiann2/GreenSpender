@@ -40,7 +40,7 @@ db.connect((err) => {
         category VARCHAR(100),
         description VARCHAR(100),
         FOREIGN KEY (user_id) REFERENCES users(id),
-        UNIQUE KEY unique_expense (date, category, description)
+        UNIQUE KEY unique_expense (user_id, date, category, description)
 )`;
     
   // Create the new expenses table

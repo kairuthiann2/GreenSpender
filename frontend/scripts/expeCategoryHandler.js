@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Object containing description for each category
   const descriptionOptions = {
     Bills: ["Internet", "Water", "Electricity"],
-    Transportation: ["Public", "Transport", "Fuel"],
+    Transportation: ["Public transport", "Fuel"],
     Food: ["Takeaways", "Food Delivery"],
     Groceries: ["Fruits", "Vegetables"],
     personalCare: ["Beauty", "Personal Care Products"],

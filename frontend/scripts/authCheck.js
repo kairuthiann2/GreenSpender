@@ -17,4 +17,5 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.removeItem("token");
     window.location.href = "/login.html";
   }
+  
 });

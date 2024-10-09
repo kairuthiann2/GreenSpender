@@ -5,7 +5,6 @@ const apiCall = async (url, method, body = null) => {
     method: method,
     headers: {
       "Content-Type": "application/json",
-      
     },
     body: body ? JSON.stringify(body) : null,
   };
@@ -18,12 +17,12 @@ const apiCall = async (url, method, body = null) => {
     }
   }
 
-  console.log(`Making ${method} request to ${url} with body:`, body);
+  //console.log(`Making ${method} request to ${url} with body:`, body);
 
   const response = await fetch(url, options);
 
   console.log(`Response status: ${response.status}`);
-
+ 
   if (!response.ok) {
     console.log(`Failed to ${method} data. Status: ${response.status} `);
     throw new Error(`Failed to ${method} data`);

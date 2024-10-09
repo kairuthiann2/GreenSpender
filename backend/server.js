@@ -12,6 +12,10 @@ const expenseRoute = require("./routes/expenseRoute");
 const metricsRoute = require("./routes/metricsRoute");
 const logOutRoute = require("./routes/logOutRoute");
 
+// Rate limiting and slow down
+const rateLimiter = require("express-rate-limit");
+const slowDown = require("express-slow-down");
+
 // Create an instance of express
 const app = express();
 
@@ -19,6 +23,20 @@ const app = express();
 /*app.get('/health', (req, res) => {
     res.status(200).send('OK');
 })*/
+
+// Express Rate Limiting Middlewares for login, register and logout routes
+const loginLogoutAndRegisterLimiter = rateLimiter({
+  windowMs: 10 * 60 * 1000, // 10 minutes window
+  max: 5, // 5 Requests for each API per window
+  message: "Too many attempts. please try again after 10 minutes."
+});
+
+// Express Slow Down Middleware for general API routes (expenses and impact metrics);
+const generalApiSpeedLimiter = slowDown({
+  windowMs: 15 * 60 * 1000, // 15 minutes window
+  delayAfter: 10, // After 10 requests per window, slow down
+  delayMs: () => 500, // 500ms delay per request after 10 requests 
+});
 
 // Middlewares
 app.use(credentials);
@@ -68,12 +86,12 @@ app.get("/:page", (req, res) => {
 });
 
 // Use the route
-app.use("/api/v1/register", registerRoute);
-app.use("/api/v1/login", loginRoute);
-app.use("/api/v1/logout", logOutRoute);
-app.use("/api/v1/expenses", expenseRoute);
+app.use("/api/v1/register", loginLogoutAndRegisterLimiter, registerRoute); // Rate limiting 
+app.use("/api/v1/login", loginLogoutAndRegisterLimiter, loginRoute); // Rate limiting
+app.use("/api/v1/logout", loginLogoutAndRegisterLimiter, logOutRoute); // Rate limiting
 
-app.use("/api/v1/impact-metrics", metricsRoute);
+app.use("/api/v1/expenses", generalApiSpeedLimiter, expenseRoute); // Slow down
+app.use("/api/v1/impact-metrics", generalApiSpeedLimiter, metricsRoute); // Slow down
 
 // Start server
 const port = process.env.PORT;

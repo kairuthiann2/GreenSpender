@@ -19,25 +19,31 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         // Send a POST request to the server with the registration data
         console.log("Sending registration request to server...");
-        const response = await apiCall("/api/v1/register", "POST", {
+        const { status, data } = await apiCall("/api/v1/register", "POST", {
           username,
           email,
           password,
         });
 
-        // If registration is successful, notify the user
-        console.log("Registration succesfull", response);
-        alert("Registration successful");
+        if (status === 201) {
+          alert("Registartion successfull");
+          // The redirect the user to the login page
+          window.location.href = "./pages/login.html";
 
-        // The redirect the user to the login page
-        window.location.href = "./pages/login.html";
+        } else if (status === 429) {
+          alert("You have exceeded the maximum number of requests. Please try again later");
+
+        } else {
+          alert("Error registering. Please try again.");
+        }
       } catch (error) {
         // Handle any errors that occur during the fetch request
         console.error("Error registering:", error.message);
         alert("Error registering. please try again");
       }
+
     });
-    // display error if registerForm is not found
+    
   } else {
     console.error("Register form not found");
   }
@@ -55,25 +61,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         // Send a POST request to the server with the login data
-        const result = await apiCall("/api/v1/login", "POST", {
+        const { status, data } = await apiCall("/api/v1/login", "POST", {
           email,
           password,
         });
 
-        // If login was successful notify the user
-        console.log("Login was successful");
-        alert("Login was successful");
+        // Handle login status
+        if (status === 200) {
+          // Log and save the received token
+          const token = result.token;
+          localStorage.setItem("token", token);
 
-        // Log and save the received token
-        const token = result.token;
-        localStorage.setItem("token", token);
+          // Decode the token to extract the user ID
+          const decodeToken = jwt_decode(token);
+          localStorage.setItem("user_id", decodeToken.id);
 
-        // Decode the token to extract the user ID
-        const decodeToken = jwt_decode(token);
-        localStorage.setItem("user_id", decodeToken.id);
+          // If login was successful notify the user
+          console.log("Login was successful");
+          alert("Login was successful");
 
-        // Then redirect the user to get started
-        window.location.href = "/pages/view_expense.html";
+          // Then redirect the user to get started
+          window.location.href = "/pages/view_expense.html";
+        } else if (status === 429) {
+          alert("You have Exceeded the maximum numer of login attempts. Please try again later");
+
+        } else if (status === 401) {
+          alert("Invalid Email or password.");
+          
+        } else {
+          alert("Error logging in. Try again later.");
+
+        }
+
       } catch (error) {
         // Handle any error that occur during the fetch request
         console.error("Error login:", error);

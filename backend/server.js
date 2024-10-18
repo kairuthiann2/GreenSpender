@@ -4,6 +4,10 @@ const cors = require("cors");
 const session = require("express-session");
 const path = require("path");
 const db = require("./db");
+const YAML = require("yamljs");
+
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = YAML.load("./docs/swaggerv1.yaml");
 const corsOptions = require("./config/corsOptions");
 const credentials = require("./middlewares/credentials");
 const registerRoute = require("./routes/registerRoute");
@@ -18,11 +22,6 @@ const slowDown = require("express-slow-down");
 
 // Create an instance of express
 const app = express();
-
-// Health check route
-/*app.get('/health', (req, res) => {
-    res.status(200).send('OK');
-})*/
 
 // Express Rate Limiting Middlewares for login, register and logout routes
 const loginLogoutAndRegisterLimiter = rateLimiter({
@@ -51,8 +50,11 @@ app.use(
   })
 );
 
-// Serve static files form th public directory
+// Serve static files form public directory
 app.use(express.static(path.join(__dirname, "../frontend")));
+
+// API documentation Route (Swagger)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Route to handle the root path
 app.get("/", (req, res) => {
@@ -92,6 +94,7 @@ app.use("/api/v1/logout", loginLogoutAndRegisterLimiter, logOutRoute); // Rate l
 
 app.use("/api/v1/expenses", generalApiSpeedLimiter, expenseRoute); // Slow down
 app.use("/api/v1/impact-metrics", generalApiSpeedLimiter, metricsRoute); // Slow down
+
 
 // Start server
 const port = process.env.PORT;

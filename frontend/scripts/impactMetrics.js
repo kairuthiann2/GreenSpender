@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('DoM fully loaded and parsed')
     try {
-        // console.log('Attempting to call the API...');
-        const response = await apiCall("/api/v1/impact-metrics", "GET");
+        // destructure result from apiCall response
+        const { result:response } = await apiCall("/api/v1/impact-metrics", "GET");
         console.log('API call successful, response:', response);
 
         // Assign the API response to the metrics 

@@ -19,21 +19,28 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         // Send a POST request to the server with the registration data
         console.log("Sending registration request to server...");
-        const { status, data } = await apiCall("/api/v1/register", "POST", {
+        const { status } = await apiCall("/api/v1/register", "POST", {
           username,
           email,
           password,
         });
 
-        if (status === 201) {
+        if (status === 200 || status === 201) {
           alert("Registartion successfull");
-          // The redirect the user to the login page
-          window.location.href = "./pages/login.html";
-
+          // Then redirect the user to the login page
+          window.location.href = "/pages/login.html";
+        } else if (status === 409) {
+          console.log("User with such email already exists");
+          alert(
+            "User already exists. Please use a different email."
+          );
         } else if (status === 429) {
-          alert("You have exceeded the maximum number of requests. Please try again later");
-
+          console.log("You have exceeded the the rate limit for this request")
+          alert(
+            "You have exceeded the maximum number of requests. Please try again later"
+          );
         } else {
+          console.log("Error registering new user.")
           alert("Error registering. Please try again.");
         }
       } catch (error) {
@@ -41,9 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error registering:", error.message);
         alert("Error registering. please try again");
       }
-
     });
-    
   } else {
     console.error("Register form not found");
   }
@@ -61,10 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         // Send a POST request to the server with the login data
-        const { status, data } = await apiCall("/api/v1/login", "POST", {
+        const { status, result } = await apiCall("/api/v1/login", "POST", {
           email,
           password,
         });
+
 
         // Handle login status
         if (status === 200) {
@@ -83,16 +89,16 @@ document.addEventListener("DOMContentLoaded", () => {
           // Then redirect the user to get started
           window.location.href = "/pages/view_expense.html";
         } else if (status === 429) {
-          alert("You have Exceeded the maximum numer of login attempts. Please try again later");
-
+          alert(
+            "You have Exceeded the maximum numer of login attempts. Please try again later"
+          );
         } else if (status === 401) {
           alert("Invalid Email or password.");
-          
         } else {
           alert("Error logging in. Try again later.");
-
+          console.log(result);
+          console.log("Log in was not successful");
         }
-
       } catch (error) {
         // Handle any error that occur during the fetch request
         console.error("Error login:", error);

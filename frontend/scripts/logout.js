@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await apiCall("/api/v1/logout", "POST");
 
         // Redirect to login page after logout
-        window.location.href = "/login.html";
+        window.location.href = "/index.html";
       } catch (error) {
         console.log("Error during logout:", error);
       }

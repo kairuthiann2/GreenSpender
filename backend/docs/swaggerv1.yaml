@@ -16,7 +16,7 @@
          summary: Register the user
          description: Create a new user by providing email, username, and password. If the user alredy exists, it returns an error.
          requestBody:
-           desscription: The user registration data
+           description: The user registration data
            required: true
            content:
              application/json:
@@ -63,7 +63,7 @@
          summary: user login
          description: Authenticate a user by validating their email and password. Returns a JWT token upon successfull authentication.
          requestBody:
-           desscription: User login credentials
+           description: User login credentials
            required: true
            content:
              application/json:
@@ -214,6 +214,111 @@
                                type: string
                                example: 'Lunch at a local restaurant'
                          
+                 500:
+                   description: Internal server Error
+                   content:
+                     application/json:
+                       schema: 
+                         type: string
+                         example: Internal server Error
+
+       /api/v1/expenses/edit_expense/{id}:
+         put:
+           summary: Edit an existing expense
+           description: Update an expense entry by its ID.
+           security:
+             - bearerAuth: []
+           parameters:
+             - name: id
+               in: path
+               required: true
+               description: ID of the expense to edit
+               schema:
+                   type: integer
+                   example: 1
+               requestBody:
+                 description: Updated expense details
+                 required: true
+                 content: 
+                   application/json:
+                     schema:
+                       type: object
+                       properties:
+                         amount: 
+                           type: number
+                           example: 75.00
+                         date: 
+                           type: string
+                           format: date
+                           example: '2024-10-19'
+                         category: 
+                           type: string
+                           example: Transoportation
+                         description: 
+                           type: string
+                           example: 'Bus fare'
+
+
+               responses: 
+                 200:
+                   description: Expense updated successfully
+                   content:
+                     application/json:
+                       schema: 
+                         type: string
+                         example: Expense updated successfully
+                     
+                 500:
+                   description: Internal server Error
+                   content:
+                     application/json:
+                       schema: 
+                         type: string
+                         example: Internal server Error
+
+       /api/v1/expenses/edit_expense/{id}:
+         get:
+           summary: Fetch a single expense by ID
+           description: Retrieve a specific expense by its ID.
+           security:
+             - bearerAuth: []
+           parameters:
+             - name: id
+               in: path
+               required: true
+               description: ID of the expense to fetch
+               schema:
+                   type: integer
+                   example: 1
+              
+               responses: 
+                 200:
+                   description: Fetched expense details
+                   content:
+                     application/json:
+                       schema: 
+                         type: object
+                         properties:
+                           id:
+                             type: integer
+                             example: 1
+                             user_id: 
+                               type: integer
+                               example: 1
+                             amount: 
+                               type: number
+                               example: 50.75
+                             date: 
+                               type: string
+                               format: date
+                               example: '2024-10-18'
+                             category: 
+                               type: string
+                               example: Food
+                             description: 
+                               type: string
+                               example: 'Lunch at a local restaurant'
+                     
                  500:
                    description: Internal server Error
                    content:

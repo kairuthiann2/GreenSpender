@@ -1,48 +1,45 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const db = require('../db');
+const express = require("express");
+const bcrypt = require("bcrypt");
+const db = require("../db");
 
-
-
-// Create an instance of express
 const router = express.Router();
 
-// User register Route 
-router.post('/', async (req, res) => {
-    try {
-        const users = 'SELECT * FROM users WHERE email = ?;';
-        // check if the user already exists
-        db.query(users, [req.body.email], (err, data) => {
-            if (err) return res.json(err);
-            if (data.length > 0) return res.status(409).json('User already exists');
+router.post("/", async (req, res) => {
+  try {
+    const users = "SELECT * FROM users WHERE email = ?;";
 
-        });
+    // Check if the user already exists
+    db.query(users, [req.body.email], (err, data) => {
+      if (err) return res.status(500).json({ error: err.message });
 
-        // Hashed password 
-        const salt = bcrypt.genSaltSync(10)
-        const hashedPassword = await bcrypt.hashSync(req.body.password, salt)
+      if (data.length > 0) {
+        // If user exists, send a 409 Conflict response and stop further execution
+        return res.status(409).json("User already exists");
+      }
 
+      // Only proceed with registration if no user was found
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-        // Create new user
-        const newUser = 'INSERT INTO users (`email`, `username`, `password`) VALUES (?)';
-        const values = [req.body.email, req.body.username, hashedPassword];
+      const newUser =
+        "INSERT INTO users (`email`, `username`, `password`) VALUES (?)";
+      const values = [req.body.email, req.body.username, hashedPassword];
 
-        db.query(newUser, [values], (err, data) => {
-            console.log('Error Inserting new User:', err);
-            if (err) return res.json(err);
+      db.query(newUser, [values], (err, data) => {
+        if (err) {
+          console.log("Error Inserting new User:", err);
+          return res.status(500).json({ error: "Error inserting user" });
+        }
 
-            // Create session after successful registration
-            req.session.userId = data.insertId;
-
-            return res.status(200).json('User created successfully')
-
-
-        });
-        
-    } catch (error) {
-        console.log('Catch block error:', err);
-        res.status(500).json('Internal server Error')
-    }
+        // Create session after successful registration
+        req.session.userId = data.insertId;
+        return res.status(200).json("User created successfully");
+      });
+    });
+  } catch (error) {
+    console.log("Catch block error:", error);
+    res.status(500).json("Internal server error");
+  }
 });
 
 module.exports = router;

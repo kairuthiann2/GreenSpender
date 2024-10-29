@@ -175,19 +175,13 @@ const fetchAndPrefillExpense = async (id) => {
 
     // Check that the date exists in the returned expense data
     if (!expense.date) {
-      console.error("No date provided in the expense date:", expense);
-      alert(" Error: No date provided for the expense.")
-      return;
-
+      console.warn("No date provided in the expense data:", expense);
     }
 
     const date = new Date(expense.date);
-
     // check if date is valid
     if (isNaN(date.getTime())) {
-      console.error("Invalid date value:", expense.date);
-      alert("Error: Invalid date value.")
-      return
+      console.warn("Invalid date value:", expense.date);
     }
 
     const formattedDate = date.toISOString().split("T")[0];

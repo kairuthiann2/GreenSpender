@@ -13,7 +13,7 @@ const predefinedImpactFactors = {
 
   Food: {
     takeaways: ["waste_generated_factor"],
-    "food delivery": ["waste_generated_factor"],
+    foodDelivery: ["waste_generated_factor"],
   },
 
   Groceries: {
@@ -21,9 +21,9 @@ const predefinedImpactFactors = {
     vegetables: ["waste_generated_factor"],
   },
 
-  "Personal care": {
+  PersonalCare: {
     beauty: ["energy_consumption_factor"],
-    "personal care products": ["waste_generated_factor"],
+    personalcCareProducts: ["waste_generated_factor"],
   },
 };
 

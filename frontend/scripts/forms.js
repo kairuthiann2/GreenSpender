@@ -89,9 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // Then redirect the user to get started
           window.location.href = "/pages/view_expense.html";
         } else if (status === 429) {
-          alert(
-            "You have Exceeded the maximum numer of login attempts. Please try again later"
-          );
+          alert("You have Exceeded the maximum number of login attempts. Please try again later");
         } else if (status === 401) {
           alert("Invalid Email or password.");
         } else {

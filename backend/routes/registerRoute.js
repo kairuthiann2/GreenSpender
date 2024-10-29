@@ -18,9 +18,11 @@ router.post("/", async (req, res) => {
       }
 
       // Only proceed with registration if no user was found
+      // Encrypt the password
       const salt = bcrypt.genSaltSync(10);
       const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
+      // Store new user in the users table
       const newUser =
         "INSERT INTO users (`email`, `username`, `password`) VALUES (?)";
       const values = [req.body.email, req.body.username, hashedPassword];

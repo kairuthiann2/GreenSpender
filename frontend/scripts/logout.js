@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // call the backend to destroy the session and the localStorage
         const response = await apiCall("/api/v1/logout", "POST");
 
-        // Redirect to login page after logout
+        // Redirect to home page after logout
         window.location.href = "/index.html";
       } catch (error) {
         console.log("Error during logout:", error);

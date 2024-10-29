@@ -31,9 +31,7 @@ const apiCall = async (url, method, body = null) => {
     // Read and log the response body only once
     const responseData = await response.json();
     console.log(
-      `${method} request to ${url} was successful. Response:`,
-      responseData
-    );
+      `${method} request to ${url} was successful.`,);
 
     return {
       status: response.status,

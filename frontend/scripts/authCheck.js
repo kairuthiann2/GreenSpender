@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!jwtToken || !isTokenValid(jwtToken)) {
     alert("You are not logged in. Please log in again.");
     localStorage.removeItem("token");
-    window.location.href = "/login.html";
   }
   
 });

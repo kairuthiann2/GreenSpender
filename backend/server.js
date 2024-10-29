@@ -4,10 +4,9 @@ const cors = require("cors");
 const session = require("express-session");
 const path = require("path");
 const db = require("./db");
-const YAML = require("yamljs");
 
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = YAML.load("./docs/swaggerv1.yaml");
+
+
 const corsOptions = require("./config/corsOptions");
 const credentials = require("./middlewares/credentials");
 const registerRoute = require("./routes/registerRoute");
@@ -53,8 +52,7 @@ app.use(
 // Serve static files form public directory
 app.use(express.static(path.join(__dirname, "../frontend")));
 
-// API documentation Route (Swagger)
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 // Route to handle the root path
 app.get("/", (req, res) => {

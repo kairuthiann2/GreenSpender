@@ -2,16 +2,21 @@
 require('dotenv').config();
 const mysql = require('mysql2');
 
+// Set ssl to false locally on development mode
+const sslConfig = process.env.USE_SSL === 'true' ? { rejectUnauthorized: false } : false;
+
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  ssl: sslConfig,
+  
 });
 
 // check if the connection works
 db.connect((err) => {
-    if (err) return console.log("Error connecting to the database");
+    if (err) return console.log("Error connecting to the database", err);
     console.log(`Connected to the MySQL database. ${process.env.DB_DATABASE}`);
 
     // Create users table 
@@ -106,9 +111,6 @@ db.connect((err) => {
     });
     
 });
-
-
-
 
 
 module.exports = db;

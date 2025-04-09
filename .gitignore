@@ -2,3 +2,4 @@
 /backend/node_modules
 /backend/.env
 /BUG_LOG.md
+node_modules/

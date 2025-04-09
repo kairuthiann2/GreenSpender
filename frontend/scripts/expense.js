@@ -1,3 +1,5 @@
+
+
 // Function to handle the 'Edit button click
 const editExpense = (id) => {
   // Redirect to the edit_expense.html page with the expense ID in the query string
@@ -33,10 +35,16 @@ const fetchExpenses = async () => {
       return;
     }
 
-    const expenses = await apiCall(
+    const response = await apiCall(
       `/api/v1/expenses/view_expense/${user_id}`,
       "GET"
     );
+
+    // Log the full response
+    console.log("API Respones:", response);
+
+    //Access the result property, which contains the expenses array
+    const expenses = response.result;
     console.log("Expenses fetched successfully:", expenses);
 
     // Upadate the UI with the fetched expenses
@@ -92,6 +100,8 @@ if (window.location.pathname.endsWith("view_expense.html")) {
   document.addEventListener("DOMContentLoaded", fetchExpenses);
 }
 
+
+
 // Add a new expense
 const addExpense = async () => {
   const amount = document.getElementById("amount").value;
@@ -143,6 +153,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+
 // Edit an expense
 
 // Fetch the expense data and prefill the form when the page loads
@@ -155,10 +167,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 const fetchAndPrefillExpense = async (id) => {
   try {
-    const expense = await apiCall(`/api/v1/expenses/edit_expense/${id}`, "GET");
+    // Destructure result from the apiCall response
+    const { result: expense  } = await apiCall(
+      `/api/v1/expenses/edit_expense/${id}`,
+      "GET"
+    );
 
-    var date = new Date(expense.date);
+    // Check that the date exists in the returned expense data
+    if (!expense.date) {
+      console.warn("No date provided in the expense data:", expense);
+    }
+
+    const date = new Date(expense.date);
+    // check if date is valid
+    if (isNaN(date.getTime())) {
+      console.warn("Invalid date value:", expense.date);
+    }
+
     const formattedDate = date.toISOString().split("T")[0];
+
+    console.log("fetched expense:", expense);
 
     // prefill the form with the fetched expense data
     document.getElementById("expense-category").value = expense.category;
@@ -216,6 +244,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
+
 
 // Delete an expense
 const deleteExpense = async (id) => {

@@ -38,16 +38,30 @@ body {
 }
 .input-group {
     margin-bottom: 25px;
+    position: relative;
     
 }
-
 .input-group input{
     width: 100%;
     padding: 16px;
     border: none;
     border-radius: 5px;
+    font-size: 1rem;
 
 }
+
+.input-group button {
+    position: absolute;
+    right: 10px;
+    top: 0.7rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    padding: 0;   
+}
+
 .input-btn{
     margin-bottom: 25px;
     display: flex;
@@ -63,8 +77,6 @@ body {
 }
 .input-btn a:hover {
     color: #ffd5c2;
-    
-
 }
 
 .input-btn button{
@@ -99,7 +111,7 @@ body {
 }
 
 /* Medium screens (tablets, 768px to 1199px) */
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 767px) and (max-width: 1199px) {
     .signup-container {
         max-width: 768px;
     }

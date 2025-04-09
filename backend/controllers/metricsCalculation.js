@@ -78,4 +78,3 @@ const calculateImpactMetrics = async (userId) => {
     
 };
 module.exports = { calculateImpactMetrics };
-// modified the metricsCalculation to incoporate the impact metrics helper function 'getRelevantImpactFactors' The logic now determines which impact factors are relevant for each expense then calculates the corresponding environmental impact metrics only for those factors.

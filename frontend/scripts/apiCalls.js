@@ -17,17 +17,28 @@ const apiCall = async (url, method, body = null) => {
     }
   }
 
-  //console.log(`Making ${method} request to ${url} with body:`, body);
+  try {
+    const response = await fetch(url, options);
 
-  const response = await fetch(url, options);
+    console.log(`Response status: ${response.status}`);
 
-  console.log(`Response status: ${response.status}`);
- 
-  if (!response.ok) {
-    console.log(`Failed to ${method} data. Status: ${response.status} `);
-    throw new Error(`Failed to ${method} data`);
+    // Check if the response is OK
+    if (!response.ok) {
+      console.log(`Failed to ${method} data. Status: ${response.status}`);
+      throw new Error(`Failed to ${method} data`);
+    }
+
+    // Read and log the response body only once
+    const responseData = await response.json();
+    console.log(
+      `${method} request to ${url} was successful.`,);
+
+    return {
+      status: response.status,
+      result: responseData // Return the parsed response body
+    };
+  } catch (error) {
+    console.error(`Error in ${method} request to ${url}:`, error);
+    throw error;
   }
-
-  console.log(`${method} request to ${url} was successful.`);
-  return await response.json();
 };

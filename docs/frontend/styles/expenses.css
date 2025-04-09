@@ -1,0 +1,176 @@
+/* === basic styling for view_expense.html ===*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.view-container {
+    display: flex;
+    height: 100%;
+
+}
+
+/* Sidebar Secction */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #606C38; /* Dark green background color for sidebar */
+    color: white;
+    padding: 20px;
+}
+
+.sidebar-menu {
+    padding: 0;
+
+}
+
+.sidebar-menu li {
+    margin: 10px 0 25px;
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    align-items: center;
+}
+
+.sidebar-menu li img {
+    border: none;
+    border-radius: 3px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    background-color: #FEFAE0;
+}
+.sidebar-menu li a {
+    text-decoration: none;
+    color: #FEFAE0;
+    font-size: 1.2rem;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar-menu a:hover {
+    color: #ffd5c2; /* Darker green on hover */
+}
+
+/* Main section */
+.main-view {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FEFAE0;
+    width: 100%;
+}
+
+.main-view h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.expense-table th{
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #283618;  
+    background-color: #606C38;
+    color: #FEFAE0; 
+}
+.expense-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #283618;
+}
+
+.edit-btn, .delete-btn {
+    background-color: #606C38;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.edit-btn a, .delete-btn a {
+    text-align: center;
+    text-decoration: none;
+    color: #FEFAE0;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    background-color: #283618;
+}
+
+
+
+
+/* Media queries */
+
+
+@media (min-width: 481px) and (max-width: 623px) {
+    
+
+    .view-container {
+        padding-left: 0;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+
+    .sidebar-menu li a {
+        font-size: 0.9rem;
+    }
+
+    .expense-table th {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+    .expense-table td {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+
+    .edit-btn .delete-btn {
+        padding: 7px 10px;
+        font-size: 0.7rem;
+    }   
+}
+
+@media (min-width: 624px) {
+    .sidebar {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 200px;
+        padding: 15px;
+    }
+
+    .sidebar-menu li a {
+        font-size: 0.9rem;
+    }
+
+    .expense-table th, .expense-table td {
+        padding: 8px;
+        font-size: 0.7rem;
+    }
+
+    .edit-btn, .delete-btn {
+        padding: 7px;
+        font-size: 0.7rem;
+    }
+}
+
+

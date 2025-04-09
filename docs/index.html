@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <title>Landing page</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+    <script src="../scripts/tokenValidation.js" defer></script>
+    <script type="module" src="../scripts/authCheck.js" defer></script>
+    <script src="../scripts/apiCalls.js" defer></script>
+    <!-- new script -->
+    <script type="module" src="../scripts/logout.js" defer></script>
+    <!-- new script -->
+  </head>
+  <body>
+    <!-- Header section STARTS -->
+    <header id="header-landing-page">
+      <div class="heading">
+        <h1>GreenSpender</h1>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="register.html">Register</a>
+        <a href="login.html">Login</a>
+        <a href="log-out.html">Log out</a>
+        <!-- logout  -->
+      </nav>
+    </header>
+    <!-- Header section ENDS -->
+
+    <!-- main section STARTS -->
+    <main class="main-landing-page">
+      <div class="main-left">
+        <p>
+          <span class="p-1"
+            >Track your expenses by taking control of your finances with
+            GreenSpender app!</span
+          >
+        </p>
+        <span class="p-2"
+          >Simplify budgeting, monitor spending, and achieve<br />your financial
+          goals effortlessly</span
+        >
+        <div class="get-started">
+          <button class="bt">
+            <a href="view_expense.html">Get Started</a>
+          </button>
+        </div>
+      </div>
+      <div class="main-right">
+        <img
+          src="../images/landing-page.png"
+          alt="man and woman tracking expenses"
+          width="500px"
+          height="550px"
+        />
+      </div>
+    </main>
+    <!-- main section ENDS -->
+  </body>
+</html>
